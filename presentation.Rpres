@@ -1,0 +1,50 @@
+Capstone Project
+========================================================
+author: Matthew Roche
+date: 02/11/17
+autosize: true
+
+Presentation for final capstone project in the Coursera Data Science specialisation.
+
+Project Aims
+========================================================
+
+The aim of this project was to use text taken from a variety of blogs, news sites and twitter to create an algorithm capable of predicting the next word in a sentance.
+
+This slide deck presents the algorithm I have created and the accompanying app.
+
+
+
+Algorithm
+========================================================
+
+Using the 'Quanteda' package I have converted the text into data frames of ngrams with lengths from one word to six words. For each ngram I created a prediction (the last word in the ngram), a predictor (all the other words in the ngram), and a count (the number of times the ngram occured).
+
+I did not use the entire text corpus to create these tables due to memory limitations. A 10% random sample of text was used. My text-coverage calculations suggest that exanding the sample beyond 10% has limited impact on accuracy, but some reduction in accuracy will result from this sampling process.
+
+For the prediction, I then use a modified Katz 'backoff' model to predict the next word. The input text is first cleaned then ngrams are created. We then search from matching ngrams in the data frames using the data.table package and extract the predictions in order of how often they occur in the text. First we look for matching six-word ngrams, then five, then four etc. If no predictions are found then the commonest words are simply returned in order.
+
+
+Using The App
+========================================================
+
+The app has a variety of functions. Text is entered into the textbox on the left-hand side.
+
+The top four predictions are displayed in buttons on the right-hand side. If less than four predictions are available then only these are displayed. The most likely prediction is on the right,  the least likely on the right.
+
+Clicking the buttons will add the predictions to the text in the input box and create new predictions based on this new input.
+
+A word cloud of the top twenty predictions is displayed below the buttons. The top twenty predictions (if available) are displayed, their size in the wordcloud is related to their predicted likelihood of being correct. Larger words are more likely.
+
+
+References
+========================================================
+
+
+Code: 
+
+https://github.com/matthewroche/coursera_data_science_capstone
+
+Shiny App: 
+
+https://matthew-roche.shinyapps.io/Coursera_Data_Science_Capstone/
