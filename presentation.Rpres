@@ -1,10 +1,14 @@
-Capstone Project
+Capstone Project - Text Prediction
 ========================================================
 author: Matthew Roche
 date: 02/11/17
 autosize: true
 
-Presentation for final capstone project in the Coursera Data Science specialisation.
+Presentation for the final capstone project in the Coursera Data Science specialisation.
+
+Final Shiny App link [here](https://matthew-roche.shinyapps.io/Coursera_Data_Science_Capstone/)
+
+Please click 'Hide Toolbars' below if you are unable to see all the text.
 
 Project Aims
 ========================================================
@@ -18,11 +22,9 @@ This slide deck presents the algorithm I have created and the accompanying app.
 Algorithm
 ========================================================
 
-Using the 'Quanteda' package I have converted the text into data frames of ngrams with lengths from one word to six words. For each ngram I created a prediction (the last word in the ngram), a predictor (all the other words in the ngram), and a count (the number of times the ngram occured).
+The raw data is converted into a series of data tables. Each table has a predictor phrase, a count of how often that phrase occured in the text and a prediction. Tables were created with 'predictor' phrases with lengths from one to six words. Only a 10% sample of the entire text corpus was used to create these tables. This limits memory requirements, and has a relatively minor impact on prediction accuracy.
 
-I did not use the entire text corpus to create these tables due to memory limitations. A 10% random sample of text was used. My text-coverage calculations suggest that exanding the sample beyond 10% has limited impact on accuracy, but some reduction in accuracy will result from this sampling process.
-
-For the prediction, I then use a modified Katz 'backoff' model to predict the next word. The input text is first cleaned then ngrams are created. We then search from matching ngrams in the data frames using the data.table package and extract the predictions in order of how often they occur in the text. First we look for matching six-word ngrams, then five, then four etc. If no predictions are found then the commonest words are simply returned in order.
+A modified Katz 'backoff' model is used to predict the next word. The input text is first cleaned then ngrams are created up to five words if available. A search is then performed for matching ngrams in the relevant data tables. If a match occurs then the prediction for that phrase is extracted. First we look for matching six-word ngrams, then five, then four etc. If no predictions are found then the commonest words are simply returned in order.
 
 
 Using The App
@@ -34,12 +36,11 @@ The top four predictions are displayed in buttons on the right-hand side. If les
 
 Clicking the buttons will add the predictions to the text in the input box and create new predictions based on this new input.
 
-A word cloud of the top twenty predictions is displayed below the buttons. The top twenty predictions (if available) are displayed, their size in the wordcloud is related to their predicted likelihood of being correct. Larger words are more likely.
+A word cloud of the top twenty predictions is displayed below the buttons. Word size is related to their predicted likelihood of being correct. Larger words are more likely.
 
 
 References
 ========================================================
-
 
 Code: 
 
@@ -48,3 +49,7 @@ https://github.com/matthewroche/coursera_data_science_capstone
 Shiny App: 
 
 https://matthew-roche.shinyapps.io/Coursera_Data_Science_Capstone/
+
+Quanteda Package Reference:
+
+https://cran.r-project.org/web/packages/quanteda/vignettes/quickstart.html
